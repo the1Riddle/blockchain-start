@@ -1,0 +1,5 @@
+package blockchain
+
+func ShowBlock(blockhash string) error {
+	return
+}
