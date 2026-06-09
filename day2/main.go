@@ -29,6 +29,9 @@ func Example() error {
 	if err := blockchain.ShoWalletBallance("alice"); err != nil {
 		return err
 	}
+	if err := blockchain.ListTransactions("alice", 10); err != nil {
+		return err
+	}
 
 	return nil
 }

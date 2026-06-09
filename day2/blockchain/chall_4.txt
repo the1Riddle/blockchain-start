@@ -1,5 +1,0 @@
-package blockchain
-
-func DecodeTransaction(txid string) error {
-	return nil
-}
