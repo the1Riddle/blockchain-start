@@ -30,6 +30,11 @@ func ListTransactions(wallet string, count int) error {
 		}
 		fmt.Printf("%s %8f BTC | %d confs\n", dir, tx.Amount, tx.Confirmations)
 		fmt.Printf("  %s\n", tx.TxID)
+		decodeErr := DecodeTransaction(tx.TxID)
+		if decodeErr != nil {
+			fmt.Printf("  (failed to decode transaction: %s)\n", decodeErr)
+		}
+		fmt.Println()
 	}
 
 	return nil
