@@ -95,7 +95,7 @@ bitcoin-cli -regtest -rpcwallet=alice getbalance | xargs echo "Alice balance:"
 bitcoin-cli -regtest -rpcwallet=bob getbalance   | xargs echo "Bob balance:"
 
 
-if [[ "$REGTEST_RUNNING" == false ]]; then
+if [[ "$REGTEST_RUNNING" != false ]]; then
     echo
     echo "Stopping bitcoind (since we started it)..."
     bitcoin-cli -regtest stop
