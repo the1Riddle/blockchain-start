@@ -25,8 +25,9 @@ type rpcResponse struct {
 
 const (
 	rpcURL      string = "http://127.0.0.1:18443/"
-	rpcPassword string = "man"
-	rpcUser     string = "btcuser"
+	// i know what you're thinking, but this is just a demo.
+	rpcPassword string = "man"// TODO: use env var
+	rpcUser     string = "bitcoinrpc"// TODO: use env var
 )
 
 func RPC(method string, params []any, wallet string, out any) error {

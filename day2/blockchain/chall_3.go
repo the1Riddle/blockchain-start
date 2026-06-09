@@ -5,26 +5,32 @@ import (
 )
 
 var txs []struct {
-	JSONRPC string `json:"category"`
-	ID      int    `json:"amount"`
-	Method  string `json:"method"`
-	Params  []any  `json:"params"`
+	Category string `json:"category"`
+	Amount  float64 `json:"amount"`
+	TxID    string `json:"txid"`
+	Confirmations int `json:"confirmations"`
 }
 
-func ShoWalletBallance(wallet string) error {
+func ListTransactions(wallet string, count int) error {
 	_ = RPC("loadwallet", []any{wallet}, "", nil)
-	var balance float64
 
 	if err := RPC(
-		"getbalance",
-		nil,
-		"alice",
-		&balance,
+		"listtransactions",
+		[]any{"*", count},
+		wallet,
+		&txs,
 	); err != nil {
 		return err
 	}
 
-	fmt.Printf("Alice has %.8f BTC\n", balance)
+	for _, tx := range txs {
+		dir := "OUT"
+		if tx.Category == "receive" || tx.Category == "generate" || tx.Category == "immature" {
+			dir = "IN"
+		}
+		fmt.Printf("%s %8f BTC | %d confs\n", dir, tx.Amount, tx.Confirmations)
+		fmt.Printf("  %s\n", tx.TxID)
+	}
 
 	return nil
 }
